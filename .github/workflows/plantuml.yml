@@ -15,6 +15,28 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Extract PlantUML from Markdown
+        run: |
+          python3 << 'EOF'
+          import re
+          import os
+          
+          os.makedirs('diagrams', exist_ok=True)
+          
+          with open('CodeDesign.md', 'r') as f:
+              content = f.read()
+          
+          # Find all plantuml code blocks with format: ```plantuml:ClassName
+          pattern = r'```plantuml:(\w+)\n(.*?)\n```'
+          matches = re.findall(pattern, content, re.DOTALL)
+          
+          for classname, code in matches:
+              filepath = f'diagrams/{classname}.puml'
+              with open(filepath, 'w') as f:
+                  f.write(code)
+              print(f"Created {filepath}")
+          EOF
+
       - name: Generate PlantUML Diagrams
         uses: grassedge/generate-plantuml-action@v1.5
         with:
