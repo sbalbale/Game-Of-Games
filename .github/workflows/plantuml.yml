@@ -12,11 +12,5 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Generate PlantUML Diagrams
-        id: plantuml
-        uses: grassedge/generate-plantuml-action@v1.5
-        with:
-          path: .
-          message: "Render PlantUML files"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Plantuml for markdown
+        uses: alessandro-marcantoni/puml-markdown@v0.1.1
