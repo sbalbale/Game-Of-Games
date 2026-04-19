@@ -1,0 +1,12 @@
+```plantuml
+@startuml
+class GetInput {
+  - scanner: Scanner
+  
+  + getInt(prompt: String): int
+  + getIntInRange(prompt: String, min: int, max: int, errorMsg: String): int
+  + getOddInt(prompt: String, errorMsg: String): int
+  + getChar(prompt: String, validChars: char[], errorMsg: String): char
+}
+@enduml
+```

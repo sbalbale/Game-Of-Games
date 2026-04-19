@@ -1,0 +1,19 @@
+```plantuml
+@startuml
+class CoinFlip {
+  - userScore: int
+  - compScore: int
+  - winThreshold: int
+  
+  + playGame(): boolean
+  - getBestOutOfValue(): int
+  - calculateWinThreshold(bestOutOf: int): void
+  - getPlayerCall(): char
+  - flipCoin(): char
+  - checkRoundWinner(call: char, result: char): void
+  - updateRoundScore(userWonRound: boolean): void
+  - checkGameWinner(): boolean
+  - declareGameWinner(): void
+}
+@enduml
+```

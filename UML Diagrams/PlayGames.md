@@ -1,0 +1,16 @@
+```plantuml
+@startuml
+class PlayGames {
+  - userOverallWins: int
+  - compOverallWins: int
+  
+  + main(args: String[]): void
+  + displayWelcomeMessage(): void
+  + displayMainMenu(): int
+  + routeToGame(choice: int): void
+  + updateOverallScoreboard(userWon: boolean): void
+  + displayFinalTally(): void
+  + declareOverallWinner(): void
+}
+@enduml
+```
