@@ -1,7 +1,7 @@
 # Code Design
 
 ### `GetInput`
-```plantuml
+```plantuml:GetInput
 @startuml
 class GetInput {
   - scanner: Scanner
@@ -13,6 +13,8 @@ class GetInput {
 }
 @enduml
 ```
+
+![GetInput Class Diagram](./diagrams/GetInput.svg)
 #### Method Glossary
 **getInt** (String)
 * **param1:** String, accepting the prompt to display to the user.
@@ -43,7 +45,7 @@ class GetInput {
 ---
 
 ### `PlayGames`
-```plantuml
+```plantuml:PlayGames
 @startuml
 class PlayGames {
   - userOverallWins: int
@@ -59,6 +61,8 @@ class PlayGames {
 }
 @enduml
 ```
+
+![PlayGames Class Diagram](./diagrams/PlayGames.svg)
 #### Method Glossary
 **main** (String[])
 * **param1:** String array, command line arguments.
@@ -94,7 +98,7 @@ class PlayGames {
 ---
 
 ### `FindTheThimble`
-```plantuml
+```plantuml:FindTheThimble
 @startuml
 class FindTheThimble {
   - userScore: int
@@ -113,6 +117,8 @@ class FindTheThimble {
 }
 @enduml
 ```
+
+![FindTheThimble Class Diagram](./diagrams/FindTheThimble.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins the game, false if the computer wins.
@@ -157,7 +163,7 @@ class FindTheThimble {
 ---
 
 ### `CoinFlip`
-```plantuml
+```plantuml:CoinFlip
 @startuml
 class CoinFlip {
   - userScore: int
@@ -176,6 +182,8 @@ class CoinFlip {
 }
 @enduml
 ```
+
+![CoinFlip Class Diagram](./diagrams/CoinFlip.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins the game.
@@ -220,7 +228,7 @@ class CoinFlip {
 ---
 
 ### `GuessTheNumber`
-```plantuml
+```plantuml:GuessTheNumber
 @startuml
 class GuessTheNumber {
   - targetNumber: int
@@ -238,6 +246,8 @@ class GuessTheNumber {
 }
 @enduml
 ```
+
+![GuessTheNumber Class Diagram](./diagrams/GuessTheNumber.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins.
@@ -274,7 +284,7 @@ class GuessTheNumber {
 ---
 
 ### `EvenAndOdd`
-```plantuml
+```plantuml:EvenAndOdd
 @startuml
 class EvenAndOdd {
   - userScore: int
@@ -296,6 +306,8 @@ class EvenAndOdd {
 }
 @enduml
 ```
+
+![EvenAndOdd Class Diagram](./diagrams/EvenAndOdd.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins.
@@ -349,7 +361,7 @@ class EvenAndOdd {
 ---
 
 ### `FindTheRedThread`
-```plantuml
+```plantuml:FindTheRedThread
 @startuml
 class FindTheRedThread {
   - TOTAL_SPOOLS: int = 20
@@ -370,6 +382,8 @@ class FindTheRedThread {
 }
 @enduml
 ```
+
+![FindTheRedThread Class Diagram](./diagrams/FindTheRedThread.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins.
@@ -409,3 +423,35 @@ class FindTheRedThread {
 * **param1:** boolean, true if the user pulled the thread.
 * **return:** void
 * **purpose:** Prints the final outcome of the game.
+
+---
+
+## Data Configuration Table
+
+| Class / Method | Value & Variable | Input Format | Output Type/Format | Internal Representation |
+| --- | --- | --- | --- | --- |
+| PlayGames / displayMainMenu | Main menu selection, `choice` | Integer (1-6) | N/A | `int` |
+| PlayGames / displayFinalTally | Overall session scores, `userOverallWins`, `compOverallWins` | N/A | Integer values shown on final tally | `int` |
+| FindTheThimble / getBestOutOfValue | Best-out-of rounds, `bestOutOf` | Odd integer | N/A | `int` |
+| FindTheThimble / getPlayerGuess | User hand guess, `guess` | Character 'L' or 'R' | N/A | `char` |
+| FindTheThimble / hideThimble | Hidden thimble location, `hidden` | N/A | Revealed in text ("Right", "Left") | `char` ('L' or 'R') |
+| CoinFlip / getBestOutOfValue | Best-out-of rounds, `bestOutOf` | Odd integer | N/A | `int` |
+| CoinFlip / getPlayerCall | User coin call, `call` | Character 'H' or 'T' | N/A | `char` |
+| CoinFlip / flipCoin | Coin flip result, `result` | N/A | String (e.g., "The coin landed on: Heads.") | `char` ('H' or 'T') |
+| GuessTheNumber / getRange | Game range bound, `numberRange` | Integer | N/A | `int` |
+| GuessTheNumber / getMaxGuesses | Maximum guesses allowed, `maxGuesses` | Integer (<= half of range) | N/A | `int` |
+| GuessTheNumber / generateTargetNumber | Target number, `targetNumber` | N/A | N/A | `int` |
+| GuessTheNumber / getPlayerGuess | User's attempt, `guess` | Integer | N/A | `int` |
+| GuessTheNumber / evaluateGuess | Guesses remaining, `currentGuessesLeft` | N/A | String (e.g., "Guesses left: 4") | `int` |
+| EvenAndOdd / assignRoles | User role assignment, `userIsEven` | Character 'E' or 'O' | String ("You are even.") | `boolean` |
+| EvenAndOdd / getBestOutOfValue | Best-out-of rounds, `bestOutOf` | Odd integer | N/A | `int` |
+| EvenAndOdd / getPlayerNumber | User selected number, `userNum` | Integer | Displayed in sum equation | `int` |
+| EvenAndOdd / getComputerNumber | Computer generated number, `compNum` | N/A | Displayed in sum equation | `int` |
+| EvenAndOdd / calculateSum | Sum of numbers, `sum` | N/A | String equation (e.g., "2 + 4 = 6 is even") | `int` |
+| FindTheRedThread / getMaxPullValue | Max spools per turn, `maxPullValue` | Integer (1-10) | N/A | `int` |
+| FindTheRedThread / initializeSpools | Red thread location, `redThreadPosition` | N/A | N/A | `int` |
+| FindTheRedThread / getPlayerPullAmount | Spools to pull, `amount` | Integer (1 to maxPullValue) | N/A | `int` |
+| FindTheRedThread / executePull | Remaining spool count, `remainingSpools` | N/A | Displayed remaining integer | `int` (initialized at 20) |
+| FindTheRedThread / switchTurn | Turn indicator, `isUserTurn` | N/A | N/A | `boolean` |
+| Best-out-of Mini-Games / calculateWinThreshold | Win threshold limit, `winThreshold` | N/A | N/A | `int` (calculated as (bestOutOf + 1) / 2) |
+| Best-out-of Mini-Games / updateRoundScore | Round score tracker, `userScore`, `compScore` | N/A | String ("You: [x], Computer: [y]") | `int` |

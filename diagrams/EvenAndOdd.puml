@@ -1,0 +1,20 @@
+@startuml
+class EvenAndOdd {
+  - userScore: int
+  - compScore: int
+  - winThreshold: int
+  - userIsEven: boolean
+  
+  + playGame(): boolean
+  - assignRoles(): void
+  - getBestOutOfValue(): int
+  - calculateWinThreshold(bestOutOf: int): void
+  - getPlayerNumber(): int
+  - getComputerNumber(): int
+  - calculateSum(userNum: int, compNum: int): int
+  - determineRoundWinner(sum: int): void
+  - updateRoundScore(userWonRound: boolean): void
+  - checkGameWinner(): boolean
+  - declareGameWinner(): void
+}
+@enduml

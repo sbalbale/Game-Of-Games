@@ -2,6 +2,9 @@ name: Generate PlantUML
 
 on: push
 
+permissions:
+  contents: write
+
 jobs:
   generate_plantuml:
     runs-on: ubuntu-latest
@@ -13,10 +16,9 @@ jobs:
           fetch-depth: 1
 
       - name: Generate PlantUML Diagrams
-        id: plantuml
         uses: grassedge/generate-plantuml-action@v1.5
         with:
-          path: .
-          message: "Render PlantUML files"
+          path: diagrams
+          message: "Render PlantUML diagrams"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
