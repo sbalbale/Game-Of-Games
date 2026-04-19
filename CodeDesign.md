@@ -1,7 +1,7 @@
 # Code Design
 
 ### `GetInput`
-```plantuml
+```plantuml:GetInput
 @startuml
 class GetInput {
   - scanner: Scanner
@@ -13,6 +13,8 @@ class GetInput {
 }
 @enduml
 ```
+
+![GetInput Class Diagram](./diagrams/GetInput.svg)
 #### Method Glossary
 **getInt** (String)
 * **param1:** String, accepting the prompt to display to the user.
@@ -43,7 +45,7 @@ class GetInput {
 ---
 
 ### `PlayGames`
-```plantuml
+```plantuml:PlayGames
 @startuml
 class PlayGames {
   - userOverallWins: int
@@ -59,6 +61,8 @@ class PlayGames {
 }
 @enduml
 ```
+
+![PlayGames Class Diagram](./diagrams/PlayGames.svg)
 #### Method Glossary
 **main** (String[])
 * **param1:** String array, command line arguments.
@@ -94,7 +98,7 @@ class PlayGames {
 ---
 
 ### `FindTheThimble`
-```plantuml
+```plantuml:FindTheThimble
 @startuml
 class FindTheThimble {
   - userScore: int
@@ -113,6 +117,8 @@ class FindTheThimble {
 }
 @enduml
 ```
+
+![FindTheThimble Class Diagram](./diagrams/FindTheThimble.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins the game, false if the computer wins.
@@ -157,7 +163,7 @@ class FindTheThimble {
 ---
 
 ### `CoinFlip`
-```plantuml
+```plantuml:CoinFlip
 @startuml
 class CoinFlip {
   - userScore: int
@@ -176,6 +182,8 @@ class CoinFlip {
 }
 @enduml
 ```
+
+![CoinFlip Class Diagram](./diagrams/CoinFlip.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins the game.
@@ -220,7 +228,7 @@ class CoinFlip {
 ---
 
 ### `GuessTheNumber`
-```plantuml
+```plantuml:GuessTheNumber
 @startuml
 class GuessTheNumber {
   - targetNumber: int
@@ -238,6 +246,8 @@ class GuessTheNumber {
 }
 @enduml
 ```
+
+![GuessTheNumber Class Diagram](./diagrams/GuessTheNumber.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins.
@@ -274,7 +284,7 @@ class GuessTheNumber {
 ---
 
 ### `EvenAndOdd`
-```plantuml
+```plantuml:EvenAndOdd
 @startuml
 class EvenAndOdd {
   - userScore: int
@@ -296,6 +306,8 @@ class EvenAndOdd {
 }
 @enduml
 ```
+
+![EvenAndOdd Class Diagram](./diagrams/EvenAndOdd.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins.
@@ -349,7 +361,7 @@ class EvenAndOdd {
 ---
 
 ### `FindTheRedThread`
-```plantuml
+```plantuml:FindTheRedThread
 @startuml
 class FindTheRedThread {
   - TOTAL_SPOOLS: int = 20
@@ -370,6 +382,8 @@ class FindTheRedThread {
 }
 @enduml
 ```
+
+![FindTheRedThread Class Diagram](./diagrams/FindTheRedThread.svg)
 #### Method Glossary
 **playGame** ()
 * **return:** boolean, returning true if the user wins.
