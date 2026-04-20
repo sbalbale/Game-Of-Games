@@ -66,22 +66,27 @@ public final class PlayGames {
         // Instantiate and play the selected game, returning a boolean win state
         switch (choice) {
             case 1:
+                System.out.println("\nYou selected: Guess the Number");
                 GuessTheNumber gtn = new GuessTheNumber();
                 userWon = gtn.playGame();
                 break;
             case 2:
+                System.out.println("\nYou selected: Coin Flip");
                 CoinFlip cf = new CoinFlip();
                 userWon = cf.playGame();
                 break;
             case 3:
+                System.out.println("\nYou selected: Even/Odd");
                 EvenAndOdd eo = new EvenAndOdd();
                 userWon = eo.playGame();
                 break;
             case 4:
+                System.out.println("\nYou selected: Find the Thimble");
                 FindTheThimble ftt = new FindTheThimble();
                 userWon = ftt.playGame();
                 break;
             case 5:
+                System.out.println("\nYou selected: Find the Red Thread");
                 FindTheRedThread frt = new FindTheRedThread();
                 userWon = frt.playGame();
                 break;
