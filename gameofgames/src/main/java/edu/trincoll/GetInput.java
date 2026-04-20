@@ -1,8 +1,14 @@
-//utility class for getting inputs to be used in main game loop and all the playable games
-//I tested it out too and it should work i hope
+/*
+* File: GetInput.java
+* Purpose: Utility class for robust user input handling, providing methods to
+* obtain validated integers, odd integers, and specific character inputs.
+* Author: Ben Lyons
+* Date: 4/20/2026
+*/
+package edu.trincoll;
 import java.util.*;
 
-public class getInput
+public class GetInput
 {
     private final Scanner reader = new Scanner(System.in);
 
