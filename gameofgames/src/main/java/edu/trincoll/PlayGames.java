@@ -1,12 +1,20 @@
+/*
+ * File: PlayGames.java
+ * Purpose: Main driver for the Game of Games application, managing game
+ * selection, session flow, and overall scorekeeping.
+ * Author: Sean Balbale
+ * Date: 4/20/2026
+ */
+
 package edu.trincoll;
 
-public class PlayGames {
+public final class PlayGames {
     // Instance variables for overall scoreboard
     private int userOverallWins = 0;
     private int compOverallWins = 0;
 
     // Instantiate the GetInput utility class for resilient input handling
-    private GetInput input = new GetInput();
+    private final GetInput input = new GetInput();
 
     public static void main(String[] args) {
         PlayGames gameOfGames = new PlayGames();
@@ -44,7 +52,11 @@ public class PlayGames {
         System.out.println("6. Quit");
 
         // Utilizing GetInput to ensure a resilient, valid choice between 1 and 6
-        return input.getIntInRange("Enter your choice: ", 1, 6, "Invalid choice. Please enter a number between 1 and 6." // Rainy day test string
+        return input.getIntInRange(
+            "Enter your choice: ",
+            1,
+            6,
+            "Invalid choice. Please enter a number between 1 and 6." // Rainy day test string
         );
     }
 
