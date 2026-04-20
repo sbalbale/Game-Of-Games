@@ -32,7 +32,6 @@ local.properties
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-# Eclipse Core
 # External tool builders
 .externalToolBuilders/
 
@@ -45,9 +44,6 @@ local.properties
 # CDT-specific (C/C++ Development Tooling)
 .cproject
 
-# JDT-specific (Eclipse Java Development Tools)
-
-
 # PDT-specific (PHP Development Tools)
 .buildpath
 
@@ -59,9 +55,6 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
-
-# STS (Spring Tool Suite)
-# Code Recommenders
 
 ### BlueJ files ###
 *.ctxt
