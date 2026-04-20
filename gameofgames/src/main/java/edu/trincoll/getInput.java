@@ -2,7 +2,7 @@
 //I tested it out too and it should work i hope
 import java.util.*;
 
-public class getInput
+public class GetInput
 {
     private final Scanner reader = new Scanner(System.in);
 
