@@ -9,6 +9,9 @@
 package edu.trincoll;
 
 public final class PlayGames {
+    // Global flag accessible by all game classes
+    public static boolean isTestMode = false;
+    
     // Instance variables for overall scoreboard
     private int userOverallWins = 0;
     private int compOverallWins = 0;
@@ -17,6 +20,15 @@ public final class PlayGames {
     private final GetInput input = new GetInput();
 
     public static void main(String[] args) {
+        // 1. Check for the test flag before doing anything else
+        for (String arg : args) {
+            if (arg.equalsIgnoreCase("--test")) {
+                isTestMode = true;
+                System.out.println("\n[SYSTEM] Executing in Test Mode. Hidden variables will be shown.");
+                break; // Flag found, no need to keep checking
+            }
+        }
+
         PlayGames gameOfGames = new PlayGames();
         gameOfGames.displayWelcomeMessage();
 
