@@ -25,7 +25,7 @@ The application supports two distinct execution variations. Use the correspondin
 ### Variation A: Player Mode (Standard Execution)
 This is the standard mode intended for end-users. No hidden variables or internal states are exposed during normal gameplay.
 ```bash
-mvn exec:java -Dexec.mainClass="PlayGames"
+mvn exec:java"
 ```
 
 ### Variation B: Test Mode (Debugging & Cheating)
@@ -33,7 +33,7 @@ This mode is strictly for testing and debugging. It exposes hidden internal stat
 
 To run the game in Test Mode, append the `--test` argument:
 ```bash
-mvn exec:java -Dexec.mainClass="PlayGames" -Dexec.args="--test"
+mvn exec:java -Dexec.args="--test"
 ```
 *(Note: You will see a `[SYSTEM] Executing in Test Mode...` banner upon successful launch, and cheat outputs will be prefixed with `[TEST MODE]` during gameplay).*
 
