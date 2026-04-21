@@ -25,7 +25,7 @@ The application supports two distinct execution variations. Use the correspondin
 ### Variation A: Player Mode (Standard Execution)
 This is the standard mode intended for end-users. No hidden variables or internal states are exposed during normal gameplay.
 ```bash
-mvn exec:java"
+mvn exec:java
 ```
 
 ### Variation B: Test Mode (Debugging & Cheating)
