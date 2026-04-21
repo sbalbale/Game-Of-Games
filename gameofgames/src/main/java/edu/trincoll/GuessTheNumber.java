@@ -8,6 +8,7 @@ public final class GuessTheNumber {
 
     public boolean playGame() {
         // TODO: Implement full game loop and return true when user wins.
+        printf("hello");
         return false;
     }
 
