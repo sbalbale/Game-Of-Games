@@ -24,7 +24,7 @@ public final class PlayGames {
         for (String arg : args) {
             if (arg.equalsIgnoreCase("--test")) {
                 isTestMode = true;
-                System.out.println("\n[SYSTEM] Executing in Test Mode. Hidden variables will be exposed.");
+                System.out.println("\n[SYSTEM] Executing in Test Mode. Hidden variables will be shown.");
                 break; // Flag found, no need to keep checking
             }
         }
