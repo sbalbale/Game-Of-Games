@@ -15,7 +15,7 @@ package edu.trincoll;
 public final class PlayGames {
     // Global flag accessible by all game classes
     public static boolean isTestMode = false;
-
+    
     // Instance variables for overall scoreboard
     private int userOverallWins = 0;
     private int compOverallWins = 0;
