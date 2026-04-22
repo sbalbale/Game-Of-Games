@@ -8,6 +8,10 @@
 
 package edu.trincoll;
 
+/**
+ * Main driver for the Game of Games application.
+ * Handles menu flow, game routing, and session-wide score tracking.
+ */
 public final class PlayGames {
     // Global flag accessible by all game classes
     public static boolean isTestMode = false;
@@ -19,6 +23,13 @@ public final class PlayGames {
     // Instantiate the GetInput utility class for resilient input handling
     private final GetInput input = new GetInput();
 
+    /**
+     * Application entry point.
+     * Enables test mode when {@code --test} is present, then runs the full
+     * game-selection loop until the user chooses to quit.
+     *
+     * @param args command-line arguments used to detect optional test mode.
+     */
     public static void main(String[] args) {
         // 1. Check for the test flag before doing anything else
         for (String arg : args) {
@@ -48,12 +59,20 @@ public final class PlayGames {
         gameOfGames.declareOverallWinner();
     }
 
+    /**
+     * Displays the startup banner for the application.
+     */
     public void displayWelcomeMessage() {
         System.out.println("=================================");
         System.out.println("   Welcome to the Game of Games! ");
         System.out.println("=================================");
     }
 
+    /**
+     * Prints the main menu and returns a validated user choice.
+     *
+     * @return a menu option between 1 and 6.
+     */
     public int displayMainMenu() {
         System.out.println("\n--- Main Menu ---");
         System.out.println("1. Guess the number");
@@ -67,6 +86,11 @@ public final class PlayGames {
         return input.getIntInRange(1, 6);
     }
 
+    /**
+     * Routes a validated menu selection to the corresponding game.
+     *
+     * @param choice the selected menu option.
+     */
     public void routeToGame(int choice) {
         boolean userWon = false;
 
@@ -106,6 +130,11 @@ public final class PlayGames {
         updateOverallScoreboard(userWon);
     }
 
+    /**
+     * Updates the overall scoreboard based on game result and prints it.
+     *
+     * @param userWon true if the user won the selected game; false otherwise.
+     */
     public void updateOverallScoreboard(boolean userWon) {
         if (userWon) {
             userOverallWins++;
@@ -118,12 +147,18 @@ public final class PlayGames {
         System.out.println("You: " + userOverallWins + " | Computer: " + compOverallWins);
     }
 
+    /**
+     * Displays the final session totals for user and computer wins.
+     */
     public void displayFinalTally() {
         System.out.println("\n=== Final Tally ===");
         System.out.println("Total User Wins: " + userOverallWins);
         System.out.println("Total Computer Wins: " + compOverallWins);
     }
 
+    /**
+     * Declares the overall winner of the full game session.
+     */
     public void declareOverallWinner() {
         // Output the final winner based on accumulated wins
         if (userOverallWins > compOverallWins) {
