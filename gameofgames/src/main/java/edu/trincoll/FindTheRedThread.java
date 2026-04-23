@@ -26,6 +26,9 @@ public final class FindTheRedThread {
         while(true) { 
             if(isUserTurn){ 
                 //Code for the user's turn pulling spools 
+                if(PlayGames.isTestMode){ //used for testing to expose spool position
+                    System.out.println("[TEST MODE] Red Thread is at position "+redThreadPosition+" of 20");
+                }
                 pull = getPlayerPullAmount(); 
                 if(checkRedThreadPulled(pull)){ 
                     declareGameWinner(isUserTurn); 
