@@ -1,4 +1,5 @@
 package edu.trincoll;
+import java.util.Random;
 
 public final class GuessTheNumber {
     private int targetNumber;
@@ -7,37 +8,70 @@ public final class GuessTheNumber {
     private int numberRange;
 
     public boolean playGame() {
-        // TODO: Implement full game loop and return true when user wins.
-        printf("hello");
+
+        numberRange = getRange();
+
+        generateTargetNumber(range);
+        maxGuesses =  getMaxGuesses(range);
+
+        currentGuessesLeft = maxGuesses;
+
+        while(currentGuessesLeft--){
+            if(evaluateGuess(getPlayerGuess())){
+                printf("Correct! You have won this round");
+                return true;
+            }
+
+            printf("Wrong guess! Guesses left: %d", currentGuessesLeft - 1);
+        }
+
+        printf("Wrong! The computer wins this round!");
         return false;
     }
 
     private int getRange() {
-        // TODO: Prompt for and validate the upper bound of the guessing range.
-        return 0;
+        printf("User, please input the range of numbers for this match")
+
+        int range;
+        scanf("%d", &range);
+
+        return range;
     }
 
-    private int getMaxGuesses(int range) {
-        // TODO: Prompt for max guesses and validate against the chosen range.
-        return 0;
+    private int  getMaxGuesses(int range) {
+        printf("User, please input the max number of guesses")
+        
+        int guesses;
+        scanf("%d", &guesses);
+
+        while(guesses > numberRange/2){
+            printf("The number of guesses is over half the range. Please type a different number:");
+            scanf("%d", &guesses);
+        }
+
+        return guess;
     }
 
     private void generateTargetNumber(int range) {
-        // TODO: Generate a random target number between 1 and range inclusive.
-        this.targetNumber = 0;
+
+        Random random = new Random();
+
+        this.targetNumber = random.nextInt(range);
+
     }
 
     private int getPlayerGuess() {
-        // TODO: Prompt for and validate a single guess.
-        return 0;
+        printf("User, please input tyour guess")
+
+        int guess;
+        scanf("%d", &guess);
+
+        return guess;
     }
 
     private boolean evaluateGuess(int guess) {
-        // TODO: Compare guess to target and update guesses remaining.
+        if(guess == targetNumber)return true;
         return false;
     }
 
-    private void declareRoundResult(boolean isCorrect) {
-        // TODO: Print win/loss messaging based on isCorrect.
-    }
 }
