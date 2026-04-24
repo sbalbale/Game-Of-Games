@@ -11,7 +11,6 @@ public final class FindTheThimble {
     private Random random = new Random();
 
     public boolean playGame() {
-        // TODO: Implement full game loop and return true when user wins.
 
         int bestOutOf = getBestOutOfValue();
         calculateWinThreshold(bestOutOf);
@@ -34,7 +33,6 @@ public final class FindTheThimble {
     }
 
     private int getBestOutOfValue() {
-        // TODO: Prompt for and validate an odd best-out-of value.
         while (true) {
             System.out.print("Enter your best out-of-value (Must be odd): ");
             int bestOutOfValue = scanner.nextInt();
@@ -46,17 +44,14 @@ public final class FindTheThimble {
     }
 
     private void calculateWinThreshold(int bestOutOf) {
-        // TODO: Confirm threshold calculation behavior for all valid inputs.
         this.winThreshold = (bestOutOf + 1) / 2;
     }
 
     private char hideThimble() {
-        // TODO: Randomly hide the thimble in left or right hand.
         return random.nextBoolean() ? 'L' : 'R';
         }
 
     private char getPlayerGuess() {
-        // TODO: Prompt user for L/R guess and validate input.
         while (true) {
             System.out.println("Pick the hand you think the thimble is in (L/R):");
             String playerGuess = scanner.next().toUpperCase();
@@ -68,7 +63,6 @@ public final class FindTheThimble {
     }
 
     private boolean checkRoundWinner(char guess, char hidden) {
-        // TODO: Compare guess to hidden side and update scores.
         boolean won;
         if (guess == hidden) {
             System.out.println("Correct! You win this round.");
@@ -98,7 +92,6 @@ public final class FindTheThimble {
     }
 
     private void declareGameWinner() {
-        // TODO: Print final winner once threshold is reached.
         if (userScore > compScore) {
             System.out.println("You win, Find the Thimble!");
         } else {
