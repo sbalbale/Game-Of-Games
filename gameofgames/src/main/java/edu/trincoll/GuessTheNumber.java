@@ -57,7 +57,7 @@ public final class GuessTheNumber {
         Random random = new Random();
 
         this.targetNumber = random.nextInt(range);
-
+        return;
     }
 
     private int getPlayerGuess() {
