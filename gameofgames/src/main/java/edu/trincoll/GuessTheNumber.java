@@ -18,19 +18,19 @@ public final class GuessTheNumber {
 
         while(currentGuessesLeft--){
             if(evaluateGuess(getPlayerGuess())){
-                printf("Correct! You have won this round");
+                printf("Correct! You have won this round\n");
                 return true;
             }
 
-            printf("Wrong guess! Guesses left: %d", currentGuessesLeft - 1);
+            printf("Wrong guess! Guesses left: %d\n", currentGuessesLeft - 1);
         }
 
-        printf("Wrong! The computer wins this round!");
+        printf("Wrong! The computer wins this round!\n");
         return false;
     }
 
     private int getRange() {
-        printf("User, please input the range of numbers for this match")
+        printf("User, please input the range of numbers for this match\n");
 
         int range;
         scanf("%d", &range);
@@ -39,13 +39,13 @@ public final class GuessTheNumber {
     }
 
     private int  getMaxGuesses(int range) {
-        printf("User, please input the max number of guesses")
+        printf("User, please input the max number of guesses\n");
         
         int guesses;
         scanf("%d", &guesses);
 
         while(guesses > numberRange/2){
-            printf("The number of guesses is over half the range. Please type a different number:");
+            printf("The number of guesses is over half the range. Please type a different number:\n");
             scanf("%d", &guesses);
         }
 
@@ -61,7 +61,7 @@ public final class GuessTheNumber {
     }
 
     private int getPlayerGuess() {
-        printf("User, please input tyour guess")
+        printf("User, please input tyour guess\n")
 
         int guess;
         scanf("%d", &guess);
