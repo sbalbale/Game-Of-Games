@@ -10,6 +10,11 @@ public final class FindTheThimble {
     private Scanner scanner =  new Scanner(System.in);
     private Random random = new Random();
 
+    public static void main(String[] args) {
+        FindTheThimble game = new FindTheThimble();
+        game.playGame();
+    }
+
     public boolean playGame() {
 
         int bestOutOf = getBestOutOfValue();
