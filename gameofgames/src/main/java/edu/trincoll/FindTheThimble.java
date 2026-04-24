@@ -28,6 +28,10 @@ public final class FindTheThimble {
             char guess = getPlayerGuess();
             boolean userWon = checkRoundWinner(guess, hidden);
             updateRoundScore(userWon);
+            System.out.println("Current score: ");
+            System.out.println("You: " + userScore);
+            System.out.println("Computer: " + compScore);
+            System.out.println();
             if (checkGameWinner()){
                 declareGameWinner();
                 return userScore > compScore;
@@ -77,10 +81,6 @@ public final class FindTheThimble {
             System.out.println("Wrong! The computer wins this round.");
             won = false;
         }
-        System.out.println("Current score: ");
-        System.out.println("You: " + userScore);
-        System.out.println("Computer: " + compScore);
-        System.out.println();
         return won;
     }
 
