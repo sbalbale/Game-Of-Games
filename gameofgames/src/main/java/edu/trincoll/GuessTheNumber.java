@@ -1,5 +1,6 @@
 package edu.trincoll;
 import java.util.Random;
+import java.util.Scanner;
 
 public final class GuessTheNumber {
     private int targetNumber;
@@ -7,49 +8,49 @@ public final class GuessTheNumber {
     private int currentGuessesLeft;
     private int numberRange;
 
+    Scanner scanner = new Scanner(System.in);
+
     public boolean playGame() {
 
         numberRange = getRange();
 
-        generateTargetNumber(range);
-        maxGuesses =  getMaxGuesses(range);
+        generateTargetNumber(numberRange);
+        maxGuesses =  getMaxGuesses(numberRange);
 
         currentGuessesLeft = maxGuesses;
 
-        while(currentGuessesLeft--){
+        while(currentGuessesLeft-- > 0){
             if(evaluateGuess(getPlayerGuess())){
-                printf("Correct! You have won this round\n");
+                System.out.println("Correct! You have won this round\n");
                 return true;
             }
 
-            printf("Wrong guess! Guesses left: %d\n", currentGuessesLeft - 1);
+            System.out.println("Wrong guess! Guesses left: " + currentGuessesLeft);
         }
 
-        printf("Wrong! The computer wins this round!\n");
+        System.out.println("Wrong! The computer wins this round!\n");
         return false;
     }
 
     private int getRange() {
-        printf("User, please input the range of numbers for this match\n");
+        System.out.println("User, please input the range of numbers for this match\n");
 
-        int range;
-        scanf("%d", &range);
+        int range = scanner.nextInt();
 
         return range;
     }
 
     private int  getMaxGuesses(int range) {
-        printf("User, please input the max number of guesses\n");
+        System.out.println("User, please input the max number of guesses\n");
         
-        int guesses;
-        scanf("%d", &guesses);
+        int guesses = scanner.nextInt();
 
         while(guesses > numberRange/2){
-            printf("The number of guesses is over half the range. Please type a different number:\n");
-            scanf("%d", &guesses);
+            System.out.println("The number of guesses is over half the range. Please type a different number:\n");
+            guesses = scanner.nextInt();
         }
 
-        return guess;
+        return guesses;
     }
 
     private void generateTargetNumber(int range) {
@@ -61,10 +62,9 @@ public final class GuessTheNumber {
     }
 
     private int getPlayerGuess() {
-        printf("User, please input tyour guess\n")
+        System.out.println("User, please input your guess\n");
 
-        int guess;
-        scanf("%d", &guess);
+        int guess = scanner.nextInt();
 
         return guess;
     }
