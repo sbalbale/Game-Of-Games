@@ -1,157 +1,124 @@
+/**
+ * EvenAndOdd.java
+ * Author: Juan Marcano
+ * 
+ * Implementation of the Even and Odd Game
+ * 
+ * Date: 04/25/26
+ */
+
 package edu.trincoll;
 import java.util.Random;
 
 public final class EvenAndOdd {
     private int userScore = 0;
     private int compScore = 0;
-    private int winThreshold;
-    private int bestOutOf;
-    private boolean userIsEven;
+    private int winThreshold;   // minimum wins needed to win the game
+    private int bestOutOf;      // total number of rounds to play
+    private boolean userIsEven; // true if user chose even, false if odd
+    private final GetInput input = new GetInput();
 
+    // Main game loop — returns true if user wins, false if computer wins
     public boolean playGame() {
         assignRoles();
-
         getBestOutOfValue();
         calculateWinThreshold();
-        
-        while (bestOutOf--){
+
+        while (bestOutOf-- > 0) {
             int userThrow = getPlayerNumber();
             int compThrow = getComputerNumber();
-
             int roundSum = calculateSum(userThrow, compThrow);
-
             determineRoundWinner(roundSum, userThrow, compThrow);
-
-            if(userScore >= winThreshold || compScore >= winThreshold)break;
+            // Exit early if someone has already reached the win threshold
+            if (userScore >= winThreshold || compScore >= winThreshold) break;
         }
-
         return checkGameWinner();
     }
 
+    // Asks the user to pick even or odd and validates their input
     private void assignRoles() {
-        printf("Would you like to be even or odd?\n Type E for even or O for odd\n");
-
-        char role;
-        scanf("%c", &role);
-
-        if(role == 'E'){
-            this.userIsEven = true;
+        char role = input.getChar("Would you like to be even or odd? Type E for even or O for odd");
+        while (role != 'E' && role != 'O') {
+            role = input.getChar("Invalid Role! Please try again (E or O):");
         }
-        else if (role == 'O'){
-            this.userIsEven = false;
-        }
-        else{
-            while(role != 'E' && role != 'O'){
-                printf("Invalid Role! Please try again\n");
-                scanf("%c", &role);
-            }
-        }
-
-        return;
+        this.userIsEven = (role == 'E');
     }
 
+    // Asks how many rounds to play and ensures it's an odd number
     private void getBestOutOfValue() {
-        printf("The winner should be the best out of how many games?\n");
-
-        int matches;
-        scanf("%d", &matches);
-
-        while(matches %2 == 0){
-            printf("Invalid value! Please try again:\n");
-            scanf("%c", &matches);
+        int matches = input.getInt("The winner should be the best out of how many games?");
+        while (matches % 2 == 0) {
+            matches = input.getInt("Invalid value! Must be odd. Please try again:");
         }
-
         this.bestOutOf = matches;
-        return;
     }
 
+    // Win threshold is the majority — e.g. best of 5 means first to 3 wins
     private void calculateWinThreshold() {
         this.winThreshold = (this.bestOutOf + 1) / 2;
-        return;
     }
 
+    // Asks the user for a throw between 1 and 5 and validates it
     private int getPlayerNumber() {
-        printf("User, what is your throw? (1-5)\n")
-
-        int userThrow;
-        scanf("%d", &userThrow);
-
-        while(userThrow < 1 || userThrow > 5){
-            printf("Invalid number! Please try again:\n");
-            scanf("%c", &userThrow);
+        int userThrow = input.getInt("User, what is your throw? (1-5)");
+        while (userThrow < 1 || userThrow > 5) {
+            userThrow = input.getInt("Invalid number! Please try again (1-5):");
         }
-
         return userThrow;
     }
 
+    // Generates a random number between 1 and 5 for the computer
     private int getComputerNumber() {
         Random random = new Random();
-
-        int compThrow = random.nextInt(5)+1;
-
-        return compThrow;
+        return random.nextInt(5) + 1;
     }
 
+    // Returns the sum of both throws
     private int calculateSum(int userNum, int compNum) {
         return userNum + compNum;
     }
 
+    // Determines who wins the round based on sum parity and the user's role
     private void determineRoundWinner(int sum, int userNum, int compNum) {
-        if(sum % 2 == 0 && userIsEven || sum %2 == 0 && !userIsEven)
-        {
+        boolean sumIsEven = sum % 2 == 0;
+        // User wins if sum parity matches their chosen role
+        boolean userWins = (sumIsEven && userIsEven) || (!sumIsEven && !userIsEven);
+
+        String parity = sumIsEven ? "even" : "odd";
+        if (userWins) {
             updateRoundScore(true);
-
-            if(userIsEven){
-                printf("%d + %d  = %d is even, you win this round!\n", userNum, compNum, sum);
-            }
-            else
-            {
-                printf("%d + %d  = %d is odd, you win this round!\n", userNum, compNum, sum);
-            }
-            return;
+            System.out.println(userNum + " + " + compNum + " = " + sum + " is " + parity + ", you win this round!");
+        } else {
+            updateRoundScore(false);
+            System.out.println(userNum + " + " + compNum + " = " + sum + " is " + parity + ", computer wins this round!");
         }
-
-        updateRoundScore(false);
-
-        if(userIsEven){
-            printf("%d + %d  = %d is odd, computer wins this round!\n", userNum, compNum, sum);
-        }
-        else
-        {
-            printf("%d + %d  = %d is even, computer wins this round!\n", userNum, compNum, sum);
-        }
-
-        return;
-
     }
 
+    // Increments the appropriate score based on who won the round
     private void updateRoundScore(boolean userWonRound) {
         if (userWonRound) {
             userScore++;
         } else {
             compScore++;
         }
-        return;
     }
 
+    // Checks if either player has reached the win threshold
     private boolean checkGameWinner() {
-        if(userScore >= winThreshold){
+        if (userScore >= winThreshold) {
             declareGameWinner(true);
             return true;
-
-        } 
-
+        }
         declareGameWinner(false);
         return false;
     }
 
+    // Prints the final game result
     private void declareGameWinner(boolean isUserWinner) {
-        if(isUserWinner){
-            printf("You win Even and Odd!\n");
-            return;
+        if (isUserWinner) {
+            System.out.println("You win Even and Odd!");
+        } else {
+            System.out.println("The computer wins Even and Odd!");
         }
-
-        printf("The computer wins Even and Odd!\n");
-        return;
     }
 }
