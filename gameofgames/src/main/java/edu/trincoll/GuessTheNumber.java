@@ -1,6 +1,5 @@
 package edu.trincoll;
 import java.util.Random;
-import java.util.Scanner;
 
 public final class GuessTheNumber {
     private int targetNumber;
@@ -8,7 +7,7 @@ public final class GuessTheNumber {
     private int currentGuessesLeft;
     private int numberRange;
 
-    Scanner scanner = new Scanner(System.in);
+    private final GetInput input = new GetInput();
 
     public boolean playGame() {
 
@@ -33,21 +32,14 @@ public final class GuessTheNumber {
     }
 
     private int getRange() {
-        System.out.println("User, please input the range of numbers for this match\n");
-
-        int range = scanner.nextInt();
-
-        return range;
+        return input.getInt("User, please input the range of numbers for this match");
     }
 
     private int  getMaxGuesses(int range) {
-        System.out.println("User, please input the max number of guesses\n");
-        
-        int guesses = scanner.nextInt();
+        int guesses = input.getInt("User, please input the max number of guesses");
 
         while(guesses > numberRange/2){
-            System.out.println("The number of guesses is over half the range. Please type a different number:\n");
-            guesses = scanner.nextInt();
+            guesses = input.getInt("The number of guesses is over half the range. Please type a different number:");
         }
 
         return guesses;
@@ -62,11 +54,7 @@ public final class GuessTheNumber {
     }
 
     private int getPlayerGuess() {
-        System.out.println("User, please input your guess\n");
-
-        int guess = scanner.nextInt();
-
-        return guess;
+        return input.getInt("User, please input your guess");
     }
 
     private boolean evaluateGuess(int guess) {
