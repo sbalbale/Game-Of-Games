@@ -21,7 +21,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -89,8 +88,7 @@ class EvenAndOddTest {
     @DisplayName("calculateWinThreshold sets threshold correctly for 3")
     void testCalculateWinThreshold3() throws Exception {
         EvenAndOdd game = new EvenAndOdd();
-        setField(game, "bestOutOf", 3);
-        invokeMethod(game, "calculateWinThreshold", new Class<?>[]{});
+        invokeMethod(game, "calculateWinThreshold", new Class<?>[]{int.class}, 3);
         assertEquals(2, getIntField(game, "winThreshold"), "Best out of 3 should require 2 wins");
     }
 
@@ -99,8 +97,7 @@ class EvenAndOddTest {
     @DisplayName("calculateWinThreshold sets threshold correctly for 5")
     void testCalculateWinThreshold5() throws Exception {
         EvenAndOdd game = new EvenAndOdd();
-        setField(game, "bestOutOf", 5);
-        invokeMethod(game, "calculateWinThreshold", new Class<?>[]{});
+        invokeMethod(game, "calculateWinThreshold", new Class<?>[]{int.class}, 5);
         assertEquals(3, getIntField(game, "winThreshold"), "Best out of 5 should require 3 wins");
     }
 
@@ -113,8 +110,7 @@ class EvenAndOddTest {
     @DisplayName("calculateWinThreshold sets threshold correctly for 7")
     void testCalculateWinThreshold7() throws Exception {
         EvenAndOdd game = new EvenAndOdd();
-        setField(game, "bestOutOf", 7);
-        invokeMethod(game, "calculateWinThreshold", new Class<?>[]{});
+        invokeMethod(game, "calculateWinThreshold", new Class<?>[]{int.class}, 7);
         assertEquals(4, getIntField(game, "winThreshold"), "Best out of 7 should require 4 wins");
     }
 
@@ -170,7 +166,7 @@ class EvenAndOddTest {
     void testDetermineRoundWinnerUserEvenSumEven() throws Exception {
         EvenAndOdd game = new EvenAndOdd();
         setField(game, "userIsEven", true);
-        invokeMethod(game, "determineRoundWinner", new Class<?>[]{int.class, int.class, int.class}, 4, 2, 2);
+        invokeMethod(game, "determineRoundWinner", new Class<?>[]{int.class}, 4);
         assertEquals(1, getIntField(game, "userScore"), "User should win when sum is even and user is even");
     }
 
@@ -180,7 +176,7 @@ class EvenAndOddTest {
     void testDetermineRoundWinnerUserOddSumOdd() throws Exception {
         EvenAndOdd game = new EvenAndOdd();
         setField(game, "userIsEven", false);
-        invokeMethod(game, "determineRoundWinner", new Class<?>[]{int.class, int.class, int.class}, 5, 2, 3);
+        invokeMethod(game, "determineRoundWinner", new Class<?>[]{int.class}, 5);
         assertEquals(1, getIntField(game, "userScore"), "User should win when sum is odd and user is odd");
     }
 
@@ -194,7 +190,7 @@ class EvenAndOddTest {
     void testDetermineRoundWinnerCompWinsEvenSum() throws Exception {
         EvenAndOdd game = new EvenAndOdd();
         setField(game, "userIsEven", false);
-        invokeMethod(game, "determineRoundWinner", new Class<?>[]{int.class, int.class, int.class}, 4, 2, 2);
+        invokeMethod(game, "determineRoundWinner", new Class<?>[]{int.class}, 4);
         assertEquals(1, getIntField(game, "compScore"), "Computer should win when sum is even and user is odd");
     }
 
@@ -204,7 +200,7 @@ class EvenAndOddTest {
     void testDetermineRoundWinnerCompWinsOddSum() throws Exception {
         EvenAndOdd game = new EvenAndOdd();
         setField(game, "userIsEven", true);
-        invokeMethod(game, "determineRoundWinner", new Class<?>[]{int.class, int.class, int.class}, 5, 2, 3);
+        invokeMethod(game, "determineRoundWinner", new Class<?>[]{int.class}, 5);
         assertEquals(1, getIntField(game, "compScore"), "Computer should win when sum is odd and user is even");
     }
 
@@ -219,7 +215,7 @@ class EvenAndOddTest {
         EvenAndOdd game = new EvenAndOdd();
         setField(game, "userScore", 3);
         setField(game, "compScore", 1);
-        invokeMethod(game, "declareGameWinner", new Class<?>[]{boolean.class}, true);
+        invokeMethod(game, "declareGameWinner", new Class<?>[]{});
         assertTrue(output().contains("You win Even and Odd!"), "Should print user win message");
     }
 
@@ -234,7 +230,7 @@ class EvenAndOddTest {
         EvenAndOdd game = new EvenAndOdd();
         setField(game, "userScore", 1);
         setField(game, "compScore", 3);
-        invokeMethod(game, "declareGameWinner", new Class<?>[]{boolean.class}, false);
+        invokeMethod(game, "declareGameWinner", new Class<?>[]{});
         assertTrue(output().contains("The computer wins Even and Odd!"), "Should print computer win message");
     }
 
