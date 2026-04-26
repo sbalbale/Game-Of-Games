@@ -14,10 +14,39 @@ public final class GuessTheNumber {
     private int maxGuesses;
     private int currentGuessesLeft;
     private int numberRange;
+    private int numberOfRounds;
+    private int userScore = 0;
+    private int compScore = 0;
+
     private final GetInput input = new GetInput();
 
     // Main game loop — returns true if user wins, false if computer wins
     public boolean playGame() {
+        numberOfRounds = getNumberOfRounds();
+        for (int round = 1; round <= numberOfRounds; round++) {
+            System.out.println("\n--- Round " + round + " ---");
+            boolean userWonRound = playRound();
+            if (userWonRound) {
+                userScore++;
+                if (userScore > numberOfRounds / 2) { // User has won more than half the rounds, so they win the game
+                    declareGameResult();
+                    return true;
+                }
+            } else {
+                compScore++;
+                if (++compScore > numberOfRounds / 2) { // Computer has won more than half the rounds, so it wins the
+                                                        // game
+                    declareGameResult();
+                    return false;
+                }
+            }
+        }
+        declareGameResult();
+        return false; // User did not win any round
+
+    }
+
+    private boolean playRound() {
         numberRange = getRange();
         generateTargetNumber(numberRange);
         maxGuesses = getMaxGuesses(numberRange);
@@ -83,6 +112,20 @@ public final class GuessTheNumber {
             System.out.println("Correct! You have won this round!");
         } else {
             System.out.println("Wrong guess! Guesses left: " + currentGuessesLeft);
+        }
+    }
+
+    private int getNumberOfRounds() {
+        System.out.println("How many rounds would you like to play? (Best of how many rounds?)");
+        return input.getIntInRange(1, Integer.MAX_VALUE);
+    }
+
+    // Prints the final game result once the user has either won or used all guesses
+    private void declareGameResult() {
+        if (currentGuessesLeft > 0) {
+            System.out.println("You win Guess the Number!");
+        } else {
+            System.out.println("The computer wins Guess the Number!");
         }
     }
 }
