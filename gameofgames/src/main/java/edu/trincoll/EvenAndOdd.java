@@ -1,4 +1,13 @@
+/**
+ * File: EvenAndOdd.java
+ * Purpose: Implementation of the Even and Odd game.
+ * Author: Sean Balbale and Juan Marcano
+ * Date: 04/25/26
+ */
+
 package edu.trincoll;
+
+import java.util.Random;
 
 public final class EvenAndOdd {
     private int userScore;
@@ -6,43 +15,84 @@ public final class EvenAndOdd {
     private int winThreshold;
     private boolean userIsEven;
 
+    private final GetInput input = new GetInput();
+    private final Random rand = new Random();
+
+    /**
+     * Runs a complete Even and Odd game.
+     *
+     * @return true if the user wins, false if the computer wins.
+     */
     public boolean playGame() {
-        // TODO: Implement full game loop and return true when user wins.
-        return false;
+        userScore = 0;
+        compScore = 0;
+
+        assignRoles();
+        int bestOutOf = getBestOutOfValue();
+        calculateWinThreshold(bestOutOf);
+
+        System.out.println("First to " + winThreshold + " wins takes the game.");
+
+        while (!checkGameWinner()) {
+            int userNum = getPlayerNumber();
+            int compNum = getComputerNumber();
+            int sum = calculateSum(userNum, compNum);
+            String parity = sum % 2 == 0 ? "even" : "odd";
+
+            System.out.println(userNum + " + " + compNum + " = " + sum + " is " + parity + ".");
+            determineRoundWinner(sum);
+            System.out.println("You: " + userScore + ", Computer: " + compScore);
+        }
+
+        declareGameWinner();
+        return userScore > compScore;
     }
 
     private void assignRoles() {
-        // TODO: Prompt user for even/odd role and set userIsEven.
-        this.userIsEven = true;
+        System.out.println("Would you like to be even or odd? Enter E for even or O for odd:");
+        char role = input.getChar(new char[] { 'E', 'O' });
+        userIsEven = role == 'E';
+
+        if (userIsEven) {
+            System.out.println("You are even.");
+        } else {
+            System.out.println("You are odd.");
+        }
     }
 
     private int getBestOutOfValue() {
-        // TODO: Prompt for and validate an odd best-out-of value.
-        return 0;
+        System.out.println("The winner should be best out of how many rounds?");
+        return input.getOddInt();
     }
 
     private void calculateWinThreshold(int bestOutOf) {
-        // TODO: Confirm threshold calculation behavior for all valid inputs.
-        this.winThreshold = (bestOutOf + 1) / 2;
+        winThreshold = (bestOutOf + 1) / 2;
     }
 
     private int getPlayerNumber() {
-        // TODO: Prompt for and validate player number input.
-        return 0;
+        System.out.println("User, what is your throw? (1-5)");
+        return input.getIntInRange(1, 5);
     }
 
     private int getComputerNumber() {
-        // TODO: Generate a computer-selected number for the round.
-        return 0;
+        return rand.nextInt(5) + 1;
     }
 
     private int calculateSum(int userNum, int compNum) {
-        // TODO: Keep round-sum logic aligned with game rules.
         return userNum + compNum;
     }
 
     private void determineRoundWinner(int sum) {
-        // TODO: Determine winner from parity and assigned roles.
+        boolean sumIsEven = sum % 2 == 0;
+        boolean userWonRound = sumIsEven == userIsEven;
+
+        updateRoundScore(userWonRound);
+
+        if (userWonRound) {
+            System.out.println("You win this round!");
+        } else {
+            System.out.println("Computer wins this round!");
+        }
     }
 
     private void updateRoundScore(boolean userWonRound) {
@@ -58,6 +108,11 @@ public final class EvenAndOdd {
     }
 
     private void declareGameWinner() {
-        // TODO: Print final winner once threshold is reached.
+        System.out.println();
+        if (userScore > compScore) {
+            System.out.println("You win Even and Odd!");
+        } else {
+            System.out.println("The computer wins Even and Odd!");
+        }
     }
 }
