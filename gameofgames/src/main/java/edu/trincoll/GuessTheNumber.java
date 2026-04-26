@@ -1,11 +1,7 @@
 /**
  * File: GuessTheNumber.java
- * Description: This class implements the logic for a "Guess the Number" game where the user 
- * tries to guess a randomly generated number within a specified range and limited number of 
- * guesses. The class handles user input, generates the target number, evaluates guesses, 
- * and manages the game flow. It also includes functionality to reveal the target number when 
- * running in test mode for debugging purposes.
- * Author: Sean Balbale and Juan Marcanocuellar
+ * Purpose: Implementation of the Guess the Number Game
+ * Author: Sean Balbale and Juan Marcano
  * Date: 4/26/2026
  **/
 
