@@ -1,42 +1,88 @@
+/**
+ * File: GuessTheNumber.java
+ * Purpose: Implementation of the Guess the Number Game
+ * Author: Sean Balbale and Juan Marcano
+ * Date: 4/26/2026
+ **/
+
 package edu.trincoll;
+
+import java.util.Random;
 
 public final class GuessTheNumber {
     private int targetNumber;
     private int maxGuesses;
     private int currentGuessesLeft;
     private int numberRange;
+    private final GetInput input = new GetInput();
 
+    // Main game loop — returns true if user wins, false if computer wins
     public boolean playGame() {
-        // TODO: Implement full game loop and return true when user wins.
+        numberRange = getRange();
+        generateTargetNumber(numberRange);
+        maxGuesses = getMaxGuesses(numberRange);
+        currentGuessesLeft = maxGuesses;
+
+        // Reveal target number if running in test mode
+        if (PlayGames.isTestMode) {
+            System.out.println("[TEST MODE] Target number is: " + targetNumber);
+        }
+
+        while (currentGuessesLeft > 0) {
+            if (evaluateGuess(getPlayerGuess())) {
+                declareRoundResult(true);
+                return true;
+            }
+            declareRoundResult(false);
+        }
+        System.out.println("Wrong! The computer wins this round!");
         return false;
     }
 
+    // Prompts the user to input the range of numbers for the game
     private int getRange() {
-        // TODO: Prompt for and validate the upper bound of the guessing range.
-        return 0;
+        System.out.println("User, please input the range of numbers for this match");
+        return input.getIntInRange(2, Integer.MAX_VALUE);
     }
 
+    // Prompts the user for max guesses and validates it does not exceed half the
+    // range
     private int getMaxGuesses(int range) {
-        // TODO: Prompt for max guesses and validate against the chosen range.
-        return 0;
+        int maxAllowedGuesses = range / 2;
+        System.out.println("User, please input the max number of guesses");
+        return input.getIntInRange(1, maxAllowedGuesses);
     }
 
+    // Generates a random target number between 1 and range inclusive
+    // nextInt(range) produces 0 to range-1, so +1 shifts to 1 to range
     private void generateTargetNumber(int range) {
-        // TODO: Generate a random target number between 1 and range inclusive.
-        this.targetNumber = 0;
+        Random random = new Random();
+        this.targetNumber = random.nextInt(range) + 1;
     }
 
+    // Prompts the user to input their guess
     private int getPlayerGuess() {
-        // TODO: Prompt for and validate a single guess.
-        return 0;
+        System.out.println("User, please input your guess");
+        return input.getIntInRange(1, numberRange);
     }
 
+    // Evaluates the user's guess and decrements currentGuessesLeft
     private boolean evaluateGuess(int guess) {
-        // TODO: Compare guess to target and update guesses remaining.
+        if (guess == targetNumber) {
+            return true;
+        }
+
+        currentGuessesLeft--;
         return false;
     }
 
+    // Prints the result of the round — correct guess or wrong with guesses
+    // remaining
     private void declareRoundResult(boolean isCorrect) {
-        // TODO: Print win/loss messaging based on isCorrect.
+        if (isCorrect) {
+            System.out.println("Correct! You have won this round!");
+        } else {
+            System.out.println("Wrong guess! Guesses left: " + currentGuessesLeft);
+        }
     }
 }

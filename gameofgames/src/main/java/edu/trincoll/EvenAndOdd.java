@@ -1,100 +1,100 @@
 /**
- * EvenAndOdd.java
- * Author: Juan Marcano
- * 
- * Implementation of the Even and Odd Game
- * 
+ * File: EvenAndOdd.java
+ * Purpose: Implementation of the Even and Odd game.
+ * Author: Sean Balbale and Juan Marcano
  * Date: 04/25/26
  */
 
 package edu.trincoll;
+
 import java.util.Random;
 
 public final class EvenAndOdd {
-    private int userScore = 0;
-    private int compScore = 0;
-    private int winThreshold;   // minimum wins needed to win the game
-    private int bestOutOf;      // total number of rounds to play
-    private boolean userIsEven; // true if user chose even, false if odd
+    private int userScore;
+    private int compScore;
+    private int winThreshold;
+    private boolean userIsEven;
+
     private final GetInput input = new GetInput();
+    private final Random rand = new Random();
 
-    // Main game loop — returns true if user wins, false if computer wins
+    /**
+     * Runs a complete Even and Odd game.
+     *
+     * @return true if the user wins, false if the computer wins.
+     */
     public boolean playGame() {
+        userScore = 0;
+        compScore = 0;
+
         assignRoles();
-        getBestOutOfValue();
-        calculateWinThreshold();
+        int bestOutOf = getBestOutOfValue();
+        calculateWinThreshold(bestOutOf);
 
-        while (bestOutOf-- > 0) {
-            int userThrow = getPlayerNumber();
-            int compThrow = getComputerNumber();
-            int roundSum = calculateSum(userThrow, compThrow);
-            determineRoundWinner(roundSum, userThrow, compThrow);
-            // Exit early if someone has already reached the win threshold
-            if (userScore >= winThreshold || compScore >= winThreshold) break;
+        System.out.println("First to " + winThreshold + " wins takes the game.");
+
+        while (!checkGameWinner()) {
+            int userNum = getPlayerNumber();
+            int compNum = getComputerNumber();
+            int sum = calculateSum(userNum, compNum);
+            String parity = sum % 2 == 0 ? "even" : "odd";
+
+            System.out.println(userNum + " + " + compNum + " = " + sum + " is " + parity + ".");
+            determineRoundWinner(sum);
+            System.out.println("You: " + userScore + ", Computer: " + compScore);
         }
-        return checkGameWinner();
+
+        declareGameWinner();
+        return userScore > compScore;
     }
 
-    // Asks the user to pick even or odd and validates their input
     private void assignRoles() {
-        char role = input.getChar("Would you like to be even or odd? Type E for even or O for odd");
-        while (role != 'E' && role != 'O') {
-            role = input.getChar("Invalid Role! Please try again (E or O):");
+        System.out.println("Would you like to be even or odd? Enter E for even or O for odd:");
+        char role = input.getChar(new char[] { 'E', 'O' });
+        userIsEven = role == 'E';
+
+        if (userIsEven) {
+            System.out.println("You are even.");
+        } else {
+            System.out.println("You are odd.");
         }
-        this.userIsEven = (role == 'E');
     }
 
-    // Asks how many rounds to play and ensures it's an odd number
-    private void getBestOutOfValue() {
-        int matches = input.getInt("The winner should be the best out of how many games?");
-        while (matches % 2 == 0) {
-            matches = input.getInt("Invalid value! Must be odd. Please try again:");
-        }
-        this.bestOutOf = matches;
+    private int getBestOutOfValue() {
+        System.out.println("The winner should be best out of how many rounds?");
+        return input.getOddInt();
     }
 
-    // Win threshold is the majority — e.g. best of 5 means first to 3 wins
-    private void calculateWinThreshold() {
-        this.winThreshold = (this.bestOutOf + 1) / 2;
+    private void calculateWinThreshold(int bestOutOf) {
+        winThreshold = (bestOutOf + 1) / 2;
     }
 
-    // Asks the user for a throw between 1 and 5 and validates it
     private int getPlayerNumber() {
-        int userThrow = input.getInt("User, what is your throw? (1-5)");
-        while (userThrow < 1 || userThrow > 5) {
-            userThrow = input.getInt("Invalid number! Please try again (1-5):");
-        }
-        return userThrow;
+        System.out.println("User, what is your throw? (1-5)");
+        return input.getIntInRange(1, 5);
     }
 
-    // Generates a random number between 1 and 5 for the computer
     private int getComputerNumber() {
-        Random random = new Random();
-        return random.nextInt(5) + 1;
+        return rand.nextInt(5) + 1;
     }
 
-    // Returns the sum of both throws
     private int calculateSum(int userNum, int compNum) {
         return userNum + compNum;
     }
 
-    // Determines who wins the round based on sum parity and the user's role
-    private void determineRoundWinner(int sum, int userNum, int compNum) {
+    private void determineRoundWinner(int sum) {
         boolean sumIsEven = sum % 2 == 0;
-        // User wins if sum parity matches their chosen role
-        boolean userWins = (sumIsEven && userIsEven) || (!sumIsEven && !userIsEven);
+        boolean userWonRound = sumIsEven == userIsEven;
 
-        String parity = sumIsEven ? "even" : "odd";
-        if (userWins) {
-            updateRoundScore(true);
-            System.out.println(userNum + " + " + compNum + " = " + sum + " is " + parity + ", you win this round!");
+        updateRoundScore(userWonRound);
+
+        if (userWonRound) {
+            System.out.println("You win this round!");
         } else {
-            updateRoundScore(false);
-            System.out.println(userNum + " + " + compNum + " = " + sum + " is " + parity + ", computer wins this round!");
+            System.out.println("Computer wins this round!");
         }
     }
 
-    // Increments the appropriate score based on who won the round
     private void updateRoundScore(boolean userWonRound) {
         if (userWonRound) {
             userScore++;
@@ -103,19 +103,13 @@ public final class EvenAndOdd {
         }
     }
 
-    // Checks if either player has reached the win threshold
     private boolean checkGameWinner() {
-        if (userScore >= winThreshold) {
-            declareGameWinner(true);
-            return true;
-        }
-        declareGameWinner(false);
-        return false;
+        return userScore >= winThreshold || compScore >= winThreshold;
     }
 
-    // Prints the final game result
-    private void declareGameWinner(boolean isUserWinner) {
-        if (isUserWinner) {
+    private void declareGameWinner() {
+        System.out.println();
+        if (userScore > compScore) {
             System.out.println("You win Even and Odd!");
         } else {
             System.out.println("The computer wins Even and Odd!");

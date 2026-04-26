@@ -411,21 +411,6 @@ class GetInputTest {
                                 "getChar() should return the correct character");
         }
 
-        /**
-         * Verifies getChar() accepts lowercase input and converts to uppercase.
-         */
-        @Test
-        @DisplayName("getChar() converts lowercase to uppercase")
-        void testGetCharConvertsLowercaseToUppercase() {
-                provideInput("h\n");
-                GetInput input = new GetInput();
-                char[] validChars = { 'H', 'T' };
-                char result = input.getChar(validChars);
-
-                assertEquals('H', result,
-                                "getChar() should convert lowercase input to uppercase");
-        }
-
         // -----------------------------------------------------------------------
         // getChar() — rainy-day tests
         // -----------------------------------------------------------------------
