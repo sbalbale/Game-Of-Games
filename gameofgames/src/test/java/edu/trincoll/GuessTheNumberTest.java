@@ -1,13 +1,8 @@
 /*
- *  GuessTheNumberTest.java
- * 
- * Unit 5 unit tests for the GuessTheNumber class, verifying correct
- * behavior of target number generation, guess evaluation, guess decrementing,
- * and round result declaration.
- *
- * Author: Juan Marcano
- *
- * Date: 4/25/2026
+* File: GuessTheNumberTest.java\
+* Purpose: Unit tests for the GuessTheNumber class
+* Author: Sean Balbale and Juan Marcano
+* Date: 4/26/2026
  */
 
 package edu.trincoll;
@@ -90,7 +85,7 @@ class GuessTheNumberTest {
     @DisplayName("generateTargetNumber produces a number within valid range")
     void testGenerateTargetNumberWithinRange() throws Exception {
         GuessTheNumber game = new GuessTheNumber();
-        invokeMethod(game, "generateTargetNumber", new Class<?>[]{int.class}, 10);
+        invokeMethod(game, "generateTargetNumber", new Class<?>[] { int.class }, 10);
         int target = getIntField(game, "targetNumber");
         assertTrue(target >= 1 && target <= 10, "Target should be between 1 and 10 inclusive");
     }
@@ -104,8 +99,8 @@ class GuessTheNumberTest {
     @DisplayName("generateTargetNumber never produces 0")
     void testGenerateTargetNumberNeverZero() throws Exception {
         GuessTheNumber game = new GuessTheNumber();
-        for(int i = 0; i < 100; i++){
-            invokeMethod(game, "generateTargetNumber", new Class<?>[]{int.class}, 10);
+        for (int i = 0; i < 100; i++) {
+            invokeMethod(game, "generateTargetNumber", new Class<?>[] { int.class }, 10);
             int target = getIntField(game, "targetNumber");
             assertTrue(target >= 1, "Target number should never be 0");
         }
@@ -116,8 +111,8 @@ class GuessTheNumberTest {
     @DisplayName("generateTargetNumber never produces a number above range")
     void testGenerateTargetNumberNeverExceedsRange() throws Exception {
         GuessTheNumber game = new GuessTheNumber();
-        for(int i = 0; i < 100; i++){
-            invokeMethod(game, "generateTargetNumber", new Class<?>[]{int.class}, 10);
+        for (int i = 0; i < 100; i++) {
+            invokeMethod(game, "generateTargetNumber", new Class<?>[] { int.class }, 10);
             int target = getIntField(game, "targetNumber");
             assertTrue(target <= 10, "Target number should never exceed the range");
         }
@@ -134,7 +129,7 @@ class GuessTheNumberTest {
         GuessTheNumber game = new GuessTheNumber();
         setField(game, "targetNumber", 5);
         setField(game, "currentGuessesLeft", 3);
-        boolean result = (boolean) invokeMethod(game, "evaluateGuess", new Class<?>[]{int.class}, 5);
+        boolean result = (boolean) invokeMethod(game, "evaluateGuess", new Class<?>[] { int.class }, 5);
         assertTrue(result, "Should return true when guess matches target");
     }
 
@@ -145,7 +140,7 @@ class GuessTheNumberTest {
         GuessTheNumber game = new GuessTheNumber();
         setField(game, "targetNumber", 5);
         setField(game, "currentGuessesLeft", 3);
-        invokeMethod(game, "evaluateGuess", new Class<?>[]{int.class}, 2);
+        invokeMethod(game, "evaluateGuess", new Class<?>[] { int.class }, 2);
         assertEquals(2, getIntField(game, "currentGuessesLeft"), "currentGuessesLeft should decrement by 1");
     }
 
@@ -160,7 +155,7 @@ class GuessTheNumberTest {
         GuessTheNumber game = new GuessTheNumber();
         setField(game, "targetNumber", 5);
         setField(game, "currentGuessesLeft", 3);
-        boolean result = (boolean) invokeMethod(game, "evaluateGuess", new Class<?>[]{int.class}, 3);
+        boolean result = (boolean) invokeMethod(game, "evaluateGuess", new Class<?>[] { int.class }, 3);
         assertFalse(result, "Should return false when guess does not match target");
     }
 
@@ -171,8 +166,9 @@ class GuessTheNumberTest {
         GuessTheNumber game = new GuessTheNumber();
         setField(game, "targetNumber", 5);
         setField(game, "currentGuessesLeft", 1);
-        invokeMethod(game, "evaluateGuess", new Class<?>[]{int.class}, 2);
-        assertEquals(0, getIntField(game, "currentGuessesLeft"), "currentGuessesLeft should reach 0 on last wrong guess");
+        invokeMethod(game, "evaluateGuess", new Class<?>[] { int.class }, 2);
+        assertEquals(0, getIntField(game, "currentGuessesLeft"),
+                "currentGuessesLeft should reach 0 on last wrong guess");
     }
 
     // -----------------------------------------------------------------------
@@ -184,7 +180,7 @@ class GuessTheNumberTest {
     @DisplayName("declareRoundResult prints win message when user wins")
     void testDeclareRoundResultUserWins() throws Exception {
         GuessTheNumber game = new GuessTheNumber();
-        invokeMethod(game, "declareRoundResult", new Class<?>[]{boolean.class}, true);
+        invokeMethod(game, "declareRoundResult", new Class<?>[] { boolean.class }, true);
         assertTrue(output().contains("Correct! You have won this round!"), "Should print win message");
     }
 
@@ -198,7 +194,7 @@ class GuessTheNumberTest {
     void testDeclareRoundResultWrongGuess() throws Exception {
         GuessTheNumber game = new GuessTheNumber();
         setField(game, "currentGuessesLeft", 2);
-        invokeMethod(game, "declareRoundResult", new Class<?>[]{boolean.class}, false);
+        invokeMethod(game, "declareRoundResult", new Class<?>[] { boolean.class }, false);
         assertTrue(output().contains("Wrong guess!"), "Should print wrong guess message");
         assertTrue(output().contains("2"), "Should display remaining guesses");
     }
@@ -209,7 +205,7 @@ class GuessTheNumberTest {
     void testDeclareRoundResultZeroGuessesLeft() throws Exception {
         GuessTheNumber game = new GuessTheNumber();
         setField(game, "currentGuessesLeft", 0);
-        invokeMethod(game, "declareRoundResult", new Class<?>[]{boolean.class}, false);
+        invokeMethod(game, "declareRoundResult", new Class<?>[] { boolean.class }, false);
         assertTrue(output().contains("0"), "Should display 0 remaining guesses");
     }
 }
