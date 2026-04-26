@@ -60,7 +60,7 @@ public class GetInput
     {
         String chars = java.util.Arrays.toString(validChars);
         System.out.println("Enter one of these characters: "+chars);
-        String myChar = reader.next().toUpperCase();
+        String myChar = reader.next();
         while(true)
         {  
             if(myChar.length()==1){
@@ -70,7 +70,7 @@ public class GetInput
                 }
             }
             System.out.println("Error: enter one of these characters: "+chars);
-            myChar = reader.next().toUpperCase();
+            myChar = reader.next();
         }
     }
 }

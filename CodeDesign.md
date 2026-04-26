@@ -40,7 +40,7 @@ class GetInput {
 * **param2:** char array, specific valid characters allowed.
 * **param3:** String, error message.
 * **return:** char, validated user selection.
-* **purpose:** Prompts the user, reads the character, converts it to uppercase, and validates it against the provided array.
+* **purpose:** Prompts the user, reads the character, and validates it against the provided array.
 
 ---
 
