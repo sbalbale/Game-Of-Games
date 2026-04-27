@@ -64,6 +64,19 @@ class PlayGamesTest {
         return capturedOutput.toString();
     }
 
+    /**
+     * Builds a PlayGames instance whose routed games do not require user input.
+     */
+    private PlayGames createPlayGamesWithStubbedRunners() {
+        return new PlayGames(
+                () -> false,
+                () -> false,
+                () -> false,
+                () -> false,
+                () -> false
+        );
+    }
+
     // -----------------------------------------------------------------------
     // displayWelcomeMessage() — sunny-day tests
     // -----------------------------------------------------------------------
@@ -257,7 +270,7 @@ class PlayGamesTest {
     @Test
     @DisplayName("Choice 1 routes to Guess the Number without throwing")
     void testRouteToGuessTheNumber() {
-        PlayGames game = new PlayGames();
+        PlayGames game = createPlayGamesWithStubbedRunners();
         assertDoesNotThrow(() -> game.routeToGame(1),
                 "Routing choice 1 to Guess the Number must not throw any exception");
         assertTrue(output().contains("Guess the Number"),
@@ -270,7 +283,7 @@ class PlayGamesTest {
     @Test
     @DisplayName("Choice 2 routes to Coin Flip without throwing")
     void testRouteToCoinFlip() {
-        PlayGames game = new PlayGames();
+        PlayGames game = createPlayGamesWithStubbedRunners();
         assertDoesNotThrow(() -> game.routeToGame(2),
                 "Routing choice 2 to Coin Flip must not throw any exception");
         assertTrue(output().contains("Coin Flip"),
@@ -283,7 +296,7 @@ class PlayGamesTest {
     @Test
     @DisplayName("Choice 3 routes to Even/Odd without throwing")
     void testRouteToEvenAndOdd() {
-        PlayGames game = new PlayGames();
+        PlayGames game = createPlayGamesWithStubbedRunners();
         assertDoesNotThrow(() -> game.routeToGame(3),
                 "Routing choice 3 to Even/Odd must not throw any exception");
         assertTrue(output().contains("Even"),
@@ -296,7 +309,7 @@ class PlayGamesTest {
     @Test
     @DisplayName("Choice 4 routes to Find the Thimble without throwing")
     void testRouteToFindTheThimble() {
-        PlayGames game = new PlayGames();
+        PlayGames game = createPlayGamesWithStubbedRunners();
         assertDoesNotThrow(() -> game.routeToGame(4),
                 "Routing choice 4 to Find the Thimble must not throw any exception");
         assertTrue(output().contains("Thimble"),
@@ -309,7 +322,7 @@ class PlayGamesTest {
     @Test
     @DisplayName("Choice 5 routes to Find the Red Thread without throwing")
     void testRouteToFindTheRedThread() {
-        PlayGames game = new PlayGames();
+        PlayGames game = createPlayGamesWithStubbedRunners();
         assertDoesNotThrow(() -> game.routeToGame(5),
                 "Routing choice 5 to Find the Red Thread must not throw any exception");
         assertTrue(output().contains("Red Thread"),
