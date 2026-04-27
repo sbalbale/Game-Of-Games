@@ -53,7 +53,7 @@ public final class GuessTheNumber {
         currentGuessesLeft = maxGuesses;
 
         // Reveal target number if running in test mode
-        if (PlayGames.isTestMode) {
+        if (PlayGames.isTestMode()) {
             System.out.println("[TEST MODE] Target number is: " + targetNumber);
         }
 

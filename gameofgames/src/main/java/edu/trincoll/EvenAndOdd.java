@@ -50,7 +50,7 @@ public final class EvenAndOdd {
 
     private void assignRoles() {
         System.out.println("Would you like to be even or odd? Enter E for even or O for odd:");
-        char role = input.getChar(new char[] { 'E', 'O' });
+        char role = input.getChar(new char[] {'E', 'O'});
         userIsEven = role == 'E';
 
         if (userIsEven) {

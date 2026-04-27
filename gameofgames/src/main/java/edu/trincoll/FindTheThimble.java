@@ -40,7 +40,7 @@ public final class FindTheThimble {
             char hidden = hideThimble();
 
             // Test mode: reveal the hidden hand before the player guesses
-            if (PlayGames.isTestMode) {
+            if (PlayGames.isTestMode()) {
                 System.out.println("[TEST MODE] The thimble is in hand: " + hidden);
             }
 

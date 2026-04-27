@@ -52,7 +52,7 @@ public final class CoinFlip {
             char result = flipCoin();
 
             // In test mode, reveal the flip result before the user sees it announced
-            if (PlayGames.isTestMode) {
+            if (PlayGames.isTestMode()) {
                 System.out.println("[TEST MODE] Coin will land on: " + (result == HEADS ? "Heads" : "Tails"));
             }
 
@@ -113,10 +113,10 @@ public final class CoinFlip {
      */
     private void checkRoundWinner(char call, char result) {
         // Display the coin result first, per the use case flow
-        String resultWord = (result == HEADS) ? "Heads" : "Tails";
+        String resultWord = result == HEADS ? "Heads" : "Tails";
         System.out.println("The coin landed on: " + resultWord + ".");
 
-        boolean userWonRound = (call == result);
+        boolean userWonRound = call == result;
 
         if (userWonRound) {
             System.out.println("Correct call! You win this round.");

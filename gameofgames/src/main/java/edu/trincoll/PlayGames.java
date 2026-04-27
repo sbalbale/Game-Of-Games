@@ -16,8 +16,8 @@ import java.util.function.BooleanSupplier;
  */
 public final class PlayGames {
     // Global flag accessible by all game classes
-    public static boolean isTestMode = false;
-    
+    private static boolean testMode = false;
+
     // Instance variables for overall scoreboard
     private int userOverallWins = 0;
     private int compOverallWins = 0;
@@ -72,8 +72,8 @@ public final class PlayGames {
     public static void main(String[] args) {
         // 1. Check for the test flag before doing anything else
         for (String arg : args) {
-            if (arg.equalsIgnoreCase("--test")) {
-                isTestMode = true;
+            if ("--test".equalsIgnoreCase(arg)) {
+                setTestMode(true);
                 System.out.println("\n[SYSTEM] Executing in Test Mode. Hidden variables will be shown.");
                 break; // Flag found, no need to keep checking
             }
@@ -203,4 +203,13 @@ public final class PlayGames {
             System.out.println("The Game of Games ends in a draw!"); // Rainy day tie-breaker test string
         }
     }
+
+    public static boolean isTestMode() {
+        return testMode;
+    }
+
+    public static void setTestMode(boolean enabled) {
+        testMode = enabled;
+    }
 }
+

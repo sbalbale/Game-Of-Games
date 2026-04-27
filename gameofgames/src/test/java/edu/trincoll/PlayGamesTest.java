@@ -360,8 +360,8 @@ class PlayGamesTest {
     @DisplayName("isTestMode is false before the --test flag is applied")
     void testIsTestModeDefaultIsFalse() {
         // Guarantee a clean state independent of test-execution order
-        PlayGames.isTestMode = false;
-        assertFalse(PlayGames.isTestMode,
+        PlayGames.setTestMode(false);
+        assertFalse(PlayGames.isTestMode(),
                 "isTestMode should default to false in player mode");
     }
 
@@ -371,14 +371,14 @@ class PlayGamesTest {
     @Test
     @DisplayName("isTestMode can be set to true to activate test mode")
     void testIsTestModeCanBeEnabled() {
-        boolean original = PlayGames.isTestMode;
+        boolean original = PlayGames.isTestMode();
         try {
-            PlayGames.isTestMode = true;
-            assertTrue(PlayGames.isTestMode,
+            PlayGames.setTestMode(true);
+            assertTrue(PlayGames.isTestMode(),
                     "isTestMode should be true once the test-mode flag is activated");
         } finally {
             // Restore so this test does not pollute other tests
-            PlayGames.isTestMode = original;
+            PlayGames.setTestMode(original);
         }
     }
 }
