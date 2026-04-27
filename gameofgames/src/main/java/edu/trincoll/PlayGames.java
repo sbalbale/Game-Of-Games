@@ -8,6 +8,8 @@
 
 package edu.trincoll;
 
+import java.util.function.BooleanSupplier;
+
 /**
  * Main driver for the Game of Games application.
  * Handles menu flow, game routing, and session-wide score tracking.
@@ -22,6 +24,43 @@ public final class PlayGames {
 
     // Instantiate the GetInput utility class for resilient input handling
     private final GetInput input = new GetInput();
+
+    // Injectable game runners for testability (avoid interactive input in unit tests)
+    private final BooleanSupplier guessTheNumberRunner;
+    private final BooleanSupplier coinFlipRunner;
+    private final BooleanSupplier evenAndOddRunner;
+    private final BooleanSupplier findTheThimbleRunner;
+    private final BooleanSupplier findTheRedThreadRunner;
+
+    /**
+     * Creates a PlayGames instance with real game implementations.
+     */
+    public PlayGames() {
+        this(
+            () -> new GuessTheNumber().playGame(),
+            () -> new CoinFlip().playGame(),
+            () -> new EvenAndOdd().playGame(),
+            () -> new FindTheThimble().playGame(),
+            () -> new FindTheRedThread().playGame()
+        );
+    }
+
+    /**
+     * Creates a PlayGames instance with injected game runners.
+     * Package-private for unit tests in the same package.
+     */
+    PlayGames(
+            BooleanSupplier guessTheNumberRunner,
+            BooleanSupplier coinFlipRunner,
+            BooleanSupplier evenAndOddRunner,
+            BooleanSupplier findTheThimbleRunner,
+            BooleanSupplier findTheRedThreadRunner) {
+        this.guessTheNumberRunner = guessTheNumberRunner;
+        this.coinFlipRunner = coinFlipRunner;
+        this.evenAndOddRunner = evenAndOddRunner;
+        this.findTheThimbleRunner = findTheThimbleRunner;
+        this.findTheRedThreadRunner = findTheRedThreadRunner;
+    }
 
     /**
      * Application entry point.
@@ -98,28 +137,23 @@ public final class PlayGames {
         switch (choice) {
             case 1:
                 System.out.println("\nYou selected: Guess the Number");
-                GuessTheNumber gtn = new GuessTheNumber();
-                userWon = gtn.playGame();
+                userWon = guessTheNumberRunner.getAsBoolean();
                 break;
             case 2:
                 System.out.println("\nYou selected: Coin Flip");
-                CoinFlip cf = new CoinFlip();
-                userWon = cf.playGame();
+                userWon = coinFlipRunner.getAsBoolean();
                 break;
             case 3:
                 System.out.println("\nYou selected: Even/Odd");
-                EvenAndOdd eo = new EvenAndOdd();
-                userWon = eo.playGame();
+                userWon = evenAndOddRunner.getAsBoolean();
                 break;
             case 4:
                 System.out.println("\nYou selected: Find the Thimble");
-                FindTheThimble ftt = new FindTheThimble();
-                userWon = ftt.playGame();
+                userWon = findTheThimbleRunner.getAsBoolean();
                 break;
             case 5:
                 System.out.println("\nYou selected: Find the Red Thread");
-                FindTheRedThread frt = new FindTheRedThread();
-                userWon = frt.playGame();
+                userWon = findTheRedThreadRunner.getAsBoolean();
                 break;
             default:
                 System.out.println("System Error: Invalid routing.");
